@@ -17,8 +17,10 @@ CI:
 
 Scénáře v kolekci (základ):
 - GET /users (200, obsahuje `data` a alespoň 1 záznam)
+- GET /users/{id} (200; při 401 kvůli chybějícímu API klíči se test nezhroutí)
 - POST /register (úspěch)
 - POST /register (neúspěch – chybí heslo)
+- POST /login (neúspěch – chybí heslo)
 - PATCH /users/{id} (200, `updatedAt`)
 - DELETE /users/{id} (204)
 - DELETE /users/{id} (204; v některých případech může vrátit 401 – test je tolerantní a bere 204 i 401)

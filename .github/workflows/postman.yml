@@ -16,11 +16,23 @@ jobs:
         with:
           node-version: "20"
       - run: npm install -g newman newman-reporter-htmlextra
-      - run: mkdir -p out
-      - run: |
+      - name: Show files
+        run: |
+          pwd
+          ls -la
+          ls -la collections
+      - name: Run Newman
+        run: |
+          mkdir -p out
+          set +e
           newman run collections/reqres.postman_collection.json \
             -e collections/reqres.postman_environment.json \
             -r cli,htmlextra --reporter-htmlextra-export out/newman.html
+          code=$?
+          if [ ! -f out/newman.html ]; then
+            echo '<html><body><h2>Newman failed before creating HTML.</h2><p>Exit code: '"$code"'</p></body></html>' > out/newman.html
+          fi
+          exit $code
       - if: always()
         uses: actions/upload-artifact@v4
         with:

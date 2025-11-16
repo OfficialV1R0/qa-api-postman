@@ -1,5 +1,7 @@
 # QA API – Postman (Reqres)
 
+[![API tests](https://github.com/OfficialV1R0/qa-api-postman/actions/workflows/postman.yml/badge.svg)](https://github.com/OfficialV1R0/qa-api-postman/actions/workflows/postman.yml)
+
 Cíl: Ukázka základních API testů nad veřejným API [Reqres](https://reqres.in) s CI běhy (Newman + HTML report).
 
 Obsah repozitáře:
@@ -14,6 +16,8 @@ Jak spustit lokálně:
 CI:
 - GitHub Actions spouští Newman na každý push do `collections/**`.
 - Výstupní HTML report najdeš v artefaktu běhu Actions.
+	- Na stránce běhu otevři záložku Summary a stáhni artefakt „postman-report“ (soubor `out/newman.html`).
+	- Přímý odkaz na workflow: https://github.com/OfficialV1R0/qa-api-postman/actions/workflows/postman.yml
 
 Scénáře v kolekci (základ):
 - GET /users (200, obsahuje `data` a alespoň 1 záznam)

@@ -13,11 +13,11 @@
           "listen": "test",
           "script": {
             "exec": [
-              "pm.test('Status 200', () => pm.response.code === 200);",
+              "pm.test('Status 200', function () { pm.expect(pm.response.code).to.eql(200); });",
               "const json = pm.response.json();",
-              "pm.test('Has data array', () => Array.isArray(json.data));",
-              "pm.test('At least 1 user', () => json.data.length > 0);",
-              "pm.test('JSON header', () => pm.response.headers.get('Content-Type').includes('application/json'));"
+              "pm.test('Has data array', function () { pm.expect(Array.isArray(json.data)).to.be.true; });",
+              "pm.test('At least 1 user', function () { pm.expect(json.data.length).to.be.above(0); });",
+              "pm.test('JSON header', function () { pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/json'); });"
             ],
             "type": "text/javascript"
           }
@@ -37,10 +37,10 @@
           "listen": "test",
           "script": {
             "exec": [
-              "pm.test('Status 200', () => pm.response.code === 200);",
+              "pm.test('Status 200', function () { pm.expect(pm.response.code).to.eql(200); });",
               "const j = pm.response.json();",
-              "pm.test('Returns id', () => pm.expect(j.id).to.be.ok);",
-              "pm.test('Returns token', () => pm.expect(j.token).to.be.ok);"
+              "pm.test('Returns id', function () { pm.expect(j.id).to.exist; });",
+              "pm.test('Returns token', function () { pm.expect(j.token).to.exist; });"
             ],
             "type": "text/javascript"
           }
@@ -60,8 +60,8 @@
           "listen": "test",
           "script": {
             "exec": [
-              "pm.test('Status 400', () => pm.response.code === 400);",
-              "pm.test('Error message present', () => pm.response.json().error);"
+              "pm.test('Status 400', function () { pm.expect(pm.response.code).to.eql(400); });",
+              "pm.test('Error message present', function () { pm.expect(pm.response.json().error).to.exist; });"
             ],
             "type": "text/javascript"
           }
@@ -81,8 +81,8 @@
           "listen": "test",
           "script": {
             "exec": [
-              "pm.test('Status 200', () => pm.response.code === 200);",
-              "pm.test('updatedAt present', () => pm.response.json().updatedAt);"
+              "pm.test('Status 200', function () { pm.expect(pm.response.code).to.eql(200); });",
+              "pm.test('updatedAt present', function () { pm.expect(pm.response.json().updatedAt).to.exist; });"
             ],
             "type": "text/javascript"
           }
@@ -97,7 +97,7 @@
           "listen": "test",
           "script": {
             "exec": [
-              "pm.test('Status 204', () => pm.response.code === 204);"
+              "pm.test('Status 204', function () { pm.expect(pm.response.code).to.eql(204); });"
             ],
             "type": "text/javascript"
           }

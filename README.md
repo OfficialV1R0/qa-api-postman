@@ -22,6 +22,11 @@ Scénáře v kolekci (základ):
 - PATCH /users/{id} (200, `updatedAt`)
 - DELETE /users/{id} (204)
 - DELETE /users/{id} (204; v některých případech může vrátit 401 – test je tolerantní a bere 204 i 401)
+  
+Autorizace a změny v Reqres:
+- Veřejné API Reqres občas vyžaduje hlavičku `x-api-key` pro zápisové operace (POST/PATCH/DELETE) a může vracet `401 {"error": "Missing API key"}`.
+- Kolekce proto používá env proměnnou `apiKey` (viz `collections/reqres.postman_environment.json`). Pokud klíč nemáš, testy pro zápisové operace tolerují i `401` a ověřují jen přítomnost chybové hlášky.
+- Pokud máš klíč, nastav `apiKey` a běhy by měly vracet 200/204/400 dle scénáře.
 
 Poznámky:
 - Kolekci si rozšiř tak, aby pokrývala i `GET /users/{id}`, případně `POST /login`.

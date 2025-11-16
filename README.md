@@ -38,7 +38,7 @@ Autorizace a změny v Reqres:
 Poznámky:
 - Kolekci si rozšiř tak, aby pokrývala i `GET /users/{id}`, případně `POST /login`.
 
-## Co se naučeno
+## Co je naučeno
 - Jak sestavit jednoduché API testy v Postmanu s jasnými `pm.expect` asercemi a ochranou proti nečekaným odpovědím (kontrola Content-Type, podmíněné parsování JSONu).
 - Jak integrovat Postman/Newman do GitHub Actions, generovat HTML report (`htmlextra`) a nahrát ho jako artefakt po každém běhu (i při pádu testů).
 - Jak pracovat s nestabilitami veřejného API (např. občasné `401 Missing API key`) – přidání volitelné hlavičky `x-api-key`, tolerantní aserce a možnost dočasně potlačit návratový kód Newmana pro demo účely.

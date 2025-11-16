@@ -1,0 +1,27 @@
+name: API tests (Postman + Newman)
+
+on:
+  push:
+    paths:
+      - "collections/**"
+      - ".github/workflows/postman.yml"
+  workflow_dispatch:
+
+jobs:
+  newman:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install -g newman newman-reporter-htmlextra
+      - run: mkdir -p out
+      - run: |
+          newman run collections/reqres.postman_collection.json \
+            -e collections/reqres.postman_environment.json \
+            -r cli,htmlextra --reporter-htmlextra-export out/newman.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: postman-report
+          path: out/newman.html

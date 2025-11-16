@@ -1,0 +1,108 @@
+{
+  "info": {
+    "name": "Reqres QA",
+    "_postman_id": "reqres-qa",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET users",
+      "request": { "method": "GET", "url": "{{baseUrl}}/users?page=2" },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200', () => pm.response.code === 200);",
+              "const json = pm.response.json();",
+              "pm.test('Has data array', () => Array.isArray(json.data));",
+              "pm.test('At least 1 user', () => json.data.length > 0);",
+              "pm.test('JSON header', () => pm.response.headers.get('Content-Type').includes('application/json'));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST register success",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{ \"email\": \"{{email}}\", \"password\": \"{{password}}\" }" },
+        "url": "{{baseUrl}}/register"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200', () => pm.response.code === 200);",
+              "const j = pm.response.json();",
+              "pm.test('Returns id', () => pm.expect(j.id).to.be.ok);",
+              "pm.test('Returns token', () => pm.expect(j.token).to.be.ok);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST register failure (missing password)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{ \"email\": \"{{email}}\" }" },
+        "url": "{{baseUrl}}/register"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 400', () => pm.response.code === 400);",
+              "pm.test('Error message present', () => pm.response.json().error);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "PATCH user",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{ \"name\": \"veronika\" }" },
+        "url": "{{baseUrl}}/users/{{userId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200', () => pm.response.code === 200);",
+              "pm.test('updatedAt present', () => pm.response.json().updatedAt);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "DELETE user",
+      "request": { "method": "DELETE", "url": "{{baseUrl}}/users/{{userId}}" },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 204', () => pm.response.code === 204);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ]
+}

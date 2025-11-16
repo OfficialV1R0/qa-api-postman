@@ -82,7 +82,17 @@
           "script": {
             "exec": [
               "pm.test('Status 200', function () { pm.expect(pm.response.code).to.eql(200); });",
-              "pm.test('updatedAt present', function () { pm.expect(pm.response.json().updatedAt).to.exist; });"
+              "const _ct = pm.response.headers.get('Content-Type') || '';",
+              "const _isJson = _ct.includes('application/json');",
+              "let _data = {};",
+              "try { _data = _isJson ? pm.response.json() : {}; } catch(e) { _data = {}; }",
+              "pm.test('updatedAt present (if expected)', function () {",
+              "  if (pm.response.code === 200) {",
+              "    pm.expect(_data.updatedAt, 'updatedAt field missing').to.exist;",
+              "  } else {",
+              "    pm.expect([undefined, null]).to.include(_data.updatedAt);",
+              "  }",
+              "});"
             ],
             "type": "text/javascript"
           }

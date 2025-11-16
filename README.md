@@ -18,6 +18,7 @@ CI:
 - Výstupní HTML report najdeš v artefaktu běhu Actions.
 	- Na stránce běhu otevři záložku Summary a stáhni artefakt „postman-report“ (soubor `out/newman.html`).
 	- Přímý odkaz na workflow: https://github.com/OfficialV1R0/qa-api-postman/actions/workflows/postman.yml
+	- Poslední běh (branch main): https://github.com/OfficialV1R0/qa-api-postman/actions/workflows/postman.yml?query=branch%3Amain
 
 Scénáře v kolekci (základ):
 - GET /users (200, obsahuje `data` a alespoň 1 záznam)

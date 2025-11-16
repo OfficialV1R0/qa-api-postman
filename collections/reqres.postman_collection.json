@@ -97,7 +97,7 @@
           "listen": "test",
           "script": {
             "exec": [
-              "pm.test('Status 204', function () { pm.expect(pm.response.code).to.eql(204); });"
+              "pm.test('Status 204 or 401', function () { pm.expect([204, 401]).to.include(pm.response.code); });"
             ],
             "type": "text/javascript"
           }

@@ -21,6 +21,7 @@ Scénáře v kolekci (základ):
 - POST /register (neúspěch – chybí heslo)
 - PATCH /users/{id} (200, `updatedAt`)
 - DELETE /users/{id} (204)
+- DELETE /users/{id} (204; v některých případech může vrátit 401 – test je tolerantní a bere 204 i 401)
 
 Poznámky:
 - Kolekci si rozšiř tak, aby pokrývala i `GET /users/{id}`, případně `POST /login`.

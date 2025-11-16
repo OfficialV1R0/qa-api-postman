@@ -21,7 +21,8 @@ jobs:
           newman run collections/reqres.postman_collection.json \
             -e collections/reqres.postman_environment.json \
             -r cli,htmlextra --reporter-htmlextra-export out/newman.html
-      - uses: actions/upload-artifact@v4
+      - if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: postman-report
           path: out/newman.html
